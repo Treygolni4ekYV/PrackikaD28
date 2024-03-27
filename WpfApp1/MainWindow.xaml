@@ -1,0 +1,194 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" MinHeight="450" MinWidth="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="ShowGridLines" Value="False"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Width" Value="190"/>
+
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="DarkCyan"/>
+
+                <Setter Property="FontSize" Value="16"/>
+
+                <Setter Property="Margin" Value="5,5,5,5"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="DarkCyan"/>
+                    <Setter Property="Background" Value="White"/>
+
+                    <Setter Property="FontSize" Value="18"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Содержание">
+                <MenuItem Header="Теория" x:Name="ThemesConteiner_MenueItem">
+                    <!--Здесь будут названия разделов-->
+                </MenuItem>
+                <MenuItem Header="Тест" Click="OpenTest"></MenuItem>
+                <MenuItem Header="Контрольные вопросы" Click="OpenControlQuestions"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Результаты">
+                <MenuItem Header="Полный список" Click="OpenAllUserList"></MenuItem>
+                <MenuItem Header="Список тестируемых" Click="OpenAllUserListWithOtherData"></MenuItem>
+                <MenuItem Header="Результаты тестрируемого" Click="OpenAllOneUserData"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Об авторе" Click="OpenAboutAutor"></MenuItem>
+        </Menu>
+        <Rectangle 
+            x:Name="Closer_Menu" 
+            Grid.Row="0" 
+            Fill="Transparent" 
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"
+            Visibility="Hidden">
+        </Rectangle>
+        
+        <!--Header-->
+        <Rectangle Grid.Row="1" Fill="DarkCyan"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White">Элементы управления и их свойств</TextBlock>
+
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Row="0" Fill="DarkCyan" Height="2" VerticalAlignment="Bottom" Margin="0,0,0,-1"/>
+                <ScrollViewer Grid.Row="0" 
+                              Margin="0,0,0,2" 
+                              HorizontalScrollBarVisibility="Disabled" 
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ThemesContainer_Panel">
+                        <!--Место для тем-->
+                    </StackPanel>
+                </ScrollViewer>
+
+
+                <Button Grid.Row="1" Click="OpenTest">Тест</Button>   
+                <Button Grid.Row="2" Click="OpenControlQuestions">Контрольные вопросы</Button>
+            </Grid>
+            <Rectangle 
+                x:Name="Closer_LBar" 
+                Grid.Column="0" 
+                Fill="Transparent" 
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch"
+                Visibility="Hidden">
+            </Rectangle>
+
+            <Rectangle HorizontalAlignment="Right" Width="2" Fill="DarkCyan" Margin="0,0,-1,0"/> 
+                
+            <Grid x:Name="ContentPlace_Grid" Grid.Column="1">
+                <!--Для тем-->
+                <TextBlock 
+                    x:Name="ThemeContent_TextBlock" 
+                    TextWrapping="Wrap" 
+                    FontSize="14"
+                    Visibility="Hidden"
+                    Margin="5">
+                    
+                </TextBlock>
+                
+                <!--Для тестов-->
+                <StackPanel
+                    x:Name="TestContent_StackPanel"
+                    Visibility="Hidden"
+                    Margin="5">
+
+                    <TextBlock
+                        x:Name="TestQuestion_TextBlock"
+                        TextWrapping="Wrap"
+                        FontSize="18"
+                        HorizontalAlignment="Center"
+                        FontWeight="DemiBold">
+                        Пример вопроса
+                    </TextBlock>
+
+                    <RadioButton x:Name="Option1_RadioButton" GroupName="group1" Margin="0,2,0,2" FontSize="14" Click="OtherAnswer_Checked">
+                        <TextBlock x:Name="Option1Content_TextBlock" Margin="0,-2,0,0" TextWrapping="Wrap">
+                            Пример выбора
+                        </TextBlock>
+                    </RadioButton>
+                    <RadioButton x:Name="Option2_RadioButton" GroupName="group1" Margin="0,2,0,2" FontSize="14" Click="OtherAnswer_Checked">
+                        <TextBlock x:Name="Option2Content_TextBlock" Margin="0,-2,0,0" TextWrapping="Wrap">
+                            Пример выбора
+                        </TextBlock>
+                    </RadioButton>
+                    <RadioButton x:Name="Option3_RadioButton" GroupName="group1" Margin="0,2,0,2" FontSize="14" Click="OtherAnswer_Checked">
+                        <TextBlock x:Name="Option3Content_TextBlock" Margin="0,-2,0,0" TextWrapping="Wrap">
+                            Пример выбора
+                        </TextBlock>
+                    </RadioButton>
+                    <RadioButton x:Name="Option4_RadioButton" GroupName="group1" Margin="0,2,0,2" FontSize="14" Click="OtherAnswer_Checked">
+                        <TextBlock x:Name="Option4Content_TextBlock" Margin="0,-2,0,0" TextWrapping="Wrap">
+                            Пример выбора
+                        </TextBlock>
+                    </RadioButton>
+
+                    <Button
+                        HorizontalAlignment="Right"
+                        Height="30"
+                        Click="NextQuestion_Click">
+                        Ответить
+                    </Button>
+                        
+                </StackPanel>
+                    
+                <!--Для контрольных вопросов-->
+                <TextBlock
+                    x:Name="ControlQuestionsContainer_TextBlock"
+                    Visibility="Hidden"
+                    TextWrapping="Wrap" 
+                    FontSize="14"
+                    Margin="5">
+                    Что такое элемент управления в WPF? Приведите примеры основных элементов управления.<LineBreak/>
+                    Какова основная разница между контентными и контейнерными элементами управления в WPF? Приведите примеры каждого типа.<LineBreak/>
+                    Что такое свойство зависимостей (Dependency Property) в WPF? Какие преимущества они предоставляют по сравнению со свойствами CLR?<LineBreak/>
+                    Как можно задать внешний вид элемента управления в WPF? Укажите методы стилизации и их особенности.<LineBreak/>
+                    Какие основные способы привязки данных доступны в WPF? Приведите примеры использования каждого способа.<LineBreak/>
+                    Что такое шаблоны элементов управления (Control Templates) в WPF? Как они используются для изменения внешнего вида элемента управления?<LineBreak/>
+                    Как можно настроить взаимодействие событий (Event Handling) для элементов управления в WPF? Приведите пример использования привязки событий.<LineBreak/>
+                    Какова роль панелей (Panels) в размещении элементов управления в WPF? Укажите различные типы панелей и их особенности.<LineBreak/>
+                    Что такое триггеры (Triggers) в WPF? Как они используются для изменения внешнего вида элементов управления в зависимости от состояния?<LineBreak/>
+                    Как можно реализовать пользовательский элемент управления в WPF? Укажите основные шаги и рекомендации.<LineBreak/>
+                </TextBlock>
+                
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</Window>
